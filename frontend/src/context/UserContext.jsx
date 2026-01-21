@@ -4,7 +4,7 @@ import React, { createContext, useEffect, useState } from 'react';
 export const userDataContext = createContext();
 
 export default function UserContext({ children }) {
-  const serverUrl = "http://localhost:8000"; // your API base URL
+  const serverUrl = "https://vartual-assistant-1.onrender.com"; // your API base URL
   const [userData,setUserData] =  useState();
    const [frontendImage, setFrontendImage] =  useState(null);
       const[backendImage,setBackendImage] = useState(null)
