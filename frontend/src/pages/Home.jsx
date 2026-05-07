@@ -232,7 +232,7 @@ export default function Home() {
         transcript = transcript.trim()
 
         // ✅ USER INPUT ALWAYS SHOW IN CONSOLE
-        console.log("🟢 USER REQUEST:", transcript)
+        console.log(" USER REQUEST:", transcript)
 
         if (!transcript) return
 
@@ -289,42 +289,76 @@ export default function Home() {
   }, [userData])
 
   // ================= UI =================
-  return (
-    <div className="w-full h-screen bg-gradient-to-t from-black to-[#030353] flex justify-center items-center flex-col gap-[15px] relative px-[20px]">
+ return (
+  <div className="w-full h-screen bg-gradient-to-t from-black to-[#030353] flex justify-center items-center flex-col gap-5 relative px-5">
 
-      <HiMenuAlt2
-        className="absolute top-[20px] right-[20px] text-white"
-        onClick={() => setHam(true)}
-      />
+    {/* Menu Icon */}
+    <HiMenuAlt2
+      className="absolute top-5 right-5 text-white text-3xl cursor-pointer"
+      onClick={() => setHam(true)}
+    />
 
-      <div className={`absolute top-0 right-0 h-full w-[250px] bg-black text-white p-4 ${ham ? "block" : "hidden"}`}>
-        <RxCross1 onClick={() => setHam(false)} />
-        <button onClick={handleLogOut}>Logout</button>
+    {/* Sidebar */}
+    <div
+      className={`fixed top-0 right-0 h-full w-[280px] bg-black/90 backdrop-blur-md text-white p-5 shadow-xl transform transition-transform duration-300 ${
+        ham ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
+      {/* Close Button */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-lg font-semibold">Menu</h2>
+        <RxCross1
+          className="cursor-pointer text-xl"
+          onClick={() => setHam(false)}
+        />
       </div>
 
-      <img
-        src={userData?.assistantImage}
-        className="w-[250px] h-[300px] object-cover"
-      />
+      {/* Buttons */}
+      <div className="flex flex-col gap-4">
 
-      <h1 className="text-white">
-        I am {userData?.assistantName}
-      </h1>
+        <button
+          onClick={() => {
+            navigate("/customize");
+            setHam(false);
+          }}
+          className="w-full py-3 bg-white text-black rounded-xl font-semibold hover:bg-gray-200 transition"
+        >
+          Customize Assistant
+        </button>
 
-      {/* GIF */}
-      {userText ? (
-        <img src={user} className="w-[180px]" />
-      ) : aiText ? (
-        <img src={ai} className="w-[180px]" />
-      ) : (
-        <img src={user} className="w-[180px]" />
-      )}
+        <button
+          onClick={handleLogOut}
+          className="w-full py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition"
+        >
+          Logout
+        </button>
 
-      <h1 className="text-white text-center">
-        {userText || aiText || "Listening..."}
-      </h1>
+      </div>
     </div>
-  )
-}
-     
-     
+
+    {/* Assistant Image */}
+    <img
+      src={userData?.assistantImage}
+      className="w-[250px] h-[300px] object-cover rounded-xl"
+    />
+
+    {/* Name */}
+    <h1 className="text-white text-xl font-semibold">
+      I am {userData?.assistantName}
+    </h1>
+
+    {/* GIF Section */}
+    {userText ? (
+      <img src={user} className="w-[180px]" />
+    ) : aiText ? (
+      <img src={ai} className="w-[180px]" />
+    ) : (
+      <img src={user} className="w-[180px]" />
+    )}
+
+    {/* Text */}
+    <h1 className="text-white text-center text-sm">
+      {userText || aiText || "Listening..."}
+    </h1>
+  </div>
+)}
