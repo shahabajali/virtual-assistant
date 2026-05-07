@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { userDataContext } from '../context/UserContext'; // only this import needed
 
-export default function SignUp() {
+export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const { serverUrl,userData,setUserData} = useContext(userDataContext); // gets value from provider
   const [err,setErr] =  useState("");

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
 
 export const userDataContext = createContext();
-
+  
 export default function UserContext({ children }) {
   const serverUrl = "http://localhost:8000"; // your API base URL
   const [userData,setUserData] =  useState();
@@ -24,8 +24,11 @@ export default function UserContext({ children }) {
   const getGeminiRespose = async(command)=>{
     try {
       const result = await axios.post(`${serverUrl}/api/user/asktoassistant`,{command},{withCredentials:true})
-        return result.data
+        return result.data;
     } catch (error) {
+        if (error.result?.status === 429) {
+    alert("API limit cross हो गई है, थोड़ी देर बाद retry करें।");
+  }
       console.log(error)
     }
 

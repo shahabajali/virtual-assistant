@@ -1,28 +1,3 @@
-import jwt from "jsonwebtoken";
-
-const isAuth = async (req, res, next) => {
-  try {
-    const token = req.cookies.token;
-
-    if (!token) {
-      return res.status(400).json({ message: "Token not found" });
-    }
-
-    const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.userId = verifyToken.userId;
-    next();
-  } catch (error) {
-    console.log("Auth Error:", error.message);
-    return res.status(401).json({ message: "Invalid token" });
-  }
-};
-
-export default isAuth;
-
-
-
-/////
 // import jwt from "jsonwebtoken";
 
 // const isAuth = async (req, res, next) => {
@@ -38,10 +13,49 @@ export default isAuth;
 //     req.userId = verifyToken.userId;
 //     next();
 //   } catch (error) {
-//     console.log(error);
+//     console.log("Auth Error:", error.message);
 //     return res.status(401).json({ message: "Invalid token" });
 //   }
 // };
 
 // export default isAuth;
+//////////////////
+import jwt from "jsonwebtoken";
 
+const isAuth = async (req, res, next) => {
+  try {
+
+    // GET TOKEN FROM COOKIE
+    const token = req.cookies?.token;
+
+    // TOKEN NOT FOUND
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: "Token not found",
+      });
+    }
+
+    // VERIFY TOKEN
+    const verifyToken = jwt.verify(
+      token,
+      process.env.JWT_SECRET
+    );
+
+    // SAVE USER ID
+    req.userId = verifyToken.userId;
+
+    next();
+
+  } catch (error) {
+
+    console.log("Auth Error:", error.message);
+
+    return res.status(401).json({
+      success: false,
+      message: "Invalid token",
+    });
+  }
+};
+
+export default isAuth;
