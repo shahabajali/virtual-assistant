@@ -294,27 +294,57 @@ export default function Home() {
 
     {/* Menu Icon */}
     <HiMenuAlt2
-      className="absolute top-5 right-5 text-white text-3xl cursor-pointer"
+      className=" flex sm:hidden absolute top-5 right-5 text-white text-3xl cursor-pointer"
       onClick={() => setHam(true)}
     />
 
     {/* Sidebar */}
     <div
-      className={`fixed top-0 right-0 h-full w-[280px] bg-black/90 backdrop-blur-md text-white p-5 shadow-xl transform transition-transform duration-300 ${
+      className={` flex sm:hidden  fixed top-0 right-0 h-full w-[280px] bg-black/90 backdrop-blur-md text-white p-5 shadow-xl transform transition-transform duration-300 
+         ${
         ham ? "translate-x-0" : "translate-x-full"
       }`}
     >
       {/* Close Button */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-semibold">Menu</h2>
+      <div className="flex justify-between items-center mb-6 absolute left-2 top-7  gap-50">
+        
         <RxCross1
           className="cursor-pointer text-xl"
           onClick={() => setHam(false)}
         />
+        
       </div>
 
+     
+
       {/* Buttons */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 absolute top-20 right-2">
+
+        <button
+          onClick={() => {
+            navigate("/customize");
+            setHam(false);
+          }}
+          className="w-full py-3 px-15 bg-white text-black rounded-xl font-semibold hover:bg-gray-200 transition"
+        >
+          Customize Assistant
+        </button>
+
+        <button
+          onClick={handleLogOut}
+          className="w-full py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition"
+        >
+          Logout
+        </button>
+
+      </div>
+      <div className="m-top-10 text-white">
+       <h1>{}</h1> 
+
+      </div>
+    </div>
+    {/* for lrgscreen */}
+    <div className="flex flex-col  hidden sm:block gap-7 absolute right-4 top-16">
 
         <button
           onClick={() => {
@@ -328,13 +358,13 @@ export default function Home() {
 
         <button
           onClick={handleLogOut}
-          className="w-full py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition"
+          className="w-full py-3 mt-5 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition "
         >
           Logout
         </button>
 
       </div>
-    </div>
+    {/* // for lrg screen */}
 
     {/* Assistant Image */}
     <img
